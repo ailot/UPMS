@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<!-- 引入配置文件 -->
+	<properties resource="init.properties"/>
+	<!-- 指定数据库驱动 -->
+	<classPathEntry location="${classPath}" />
+	<!-- 一个数据库一个context -->
+  	<context id="context1" targetRuntime="MyBatis3">
+  	<!-- 注释-->
+  	<commentGenerator>
+  		<property name="suppressDate" value="true"/>
+  		<!-- 是否去除自动生成的注释 true：是 ： false:否 -->  
+        <property name="suppressAllComments" value="true"/>
+  	</commentGenerator>
+  	
+  	<!-- 数据库连接 -->
+    <jdbcConnection driverClass="${jdbc_driver}" 
+    connectionURL="${jdbc_url}" 
+    userId="${jdbc_user}" password="${jdbc_password}" />
+    
+    <!--允许数值类型转换成不同类型,否则都映射为BigDecimal -->
+	<javaTypeResolver>
+		<property name="forceBigDecimals" value="false" />
+	</javaTypeResolver>
+	
+	<!-- 模型文件 -->
+    <javaModelGenerator targetPackage="${package}" targetProject="${project}">
+    	<property name="enableSubPackages" value="true" /> 
+    	<!--  当为true时，产生的代码文件将按照schema产生子文件夹 -->
+		<property name="trimStrings" value="true" /> 
+		<!--  set变量时自动剔除空白 -->
+    </javaModelGenerator>
+   
+    <!-- XML映射文件 -->
+    <sqlMapGenerator targetPackage="${package}" targetProject="${project}">
+    	<property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+   
+    <!-- DAO文件(mapper接口) -->
+    <javaClientGenerator targetPackage="${package}" targetProject="${project}" type="XMLMAPPER">
+    	<property name="enableSubPackages" value="false" />
+    </javaClientGenerator>
+  	
+  	<!-- 数据库表 -->
+    <table tableName="${table}" domainObjectName="${object}" enableCountByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false"  
+            enableUpdateByExample="false" >
+    </table>
+  </context>
+</generatorConfiguration>

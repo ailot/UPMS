@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 使全局的映射器启用或禁用缓存。 -->
+		<setting name="cacheEnabled" value="true"/>
+		<!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+	</settings>
+	
+	<!-- 类型别名 -->
+	<typeAliases>
+		<typeAlias alias="sysuser" type="cn.ailot.sys.entity.SysUser"/> <!-- 用户 -->
+		<typeAlias alias="sysdict" type="cn.ailot.sys.entity.SysDict"/> <!-- 字典 -->
+		<typeAlias alias="sysdept" type="cn.ailot.sys.entity.SysDept"/> <!-- 单位 -->
+		<typeAlias alias="sysnotice" type="cn.ailot.sys.entity.SysNotice"/> <!-- 通知 -->
+		<typeAlias alias="sysfile" type="cn.ailot.sys.entity.SysFile"/> <!-- 文件 -->
+		<typeAlias alias="sysrole" type="cn.ailot.sys.entity.SysRole"/> <!-- 角色 -->
+		<typeAlias alias="sysright" type="cn.ailot.sys.entity.SysRight"/> <!-- 角色 -->
+		<typeAlias alias="sysroleright" type="cn.ailot.sys.entity.SysRoleRight"/> <!-- 角色权限 -->
+		<typeAlias alias="checkbox" type="cn.ailot.sys.entity.CheckBox"/> <!-- 角色权限 -->
+		<typeAlias alias="combobox" type="cn.ailot.sys.entity.Combobox"/>
+		<typeAlias alias="exttree" type="cn.ailot.sys.entity.ExtTree"/>
+		<typeAlias alias="diskfile" type="cn.ailot.sys.entity.DiskFile"/>
+		<typeAlias alias="webdisk" type="cn.ailot.sys.entity.WebDisk"/>
+	</typeAliases>
+	
+	<mappers>
+	 	<mapper resource="mapper/sys/SysUserMapper.xml"/> <!-- 用户 -->
+	 	<mapper resource="mapper/sys/SysDictMapper.xml"/> <!-- 字典 -->
+	 	<mapper resource="mapper/sys/SysDeptMapper.xml"/> <!-- 单位 -->
+	 	<mapper resource="mapper/sys/SysNoticeMapper.xml"/> <!-- 通知 -->
+	 	<mapper resource="mapper/sys/SysFileMapper.xml"/> <!-- 文件 -->
+	 	<mapper resource="mapper/sys/SysRoleMapper.xml"/> <!-- 角色 -->
+	 	<mapper resource="mapper/sys/SysRoleRightMapper.xml"/> <!-- 角色权限 -->
+	 	<mapper resource="mapper/sys/DiskFileMapper.xml"/> <!-- 网盘文件 -->
+	 	<mapper resource="mapper/sys/WebDiskMapper.xml"/> <!-- 网盘信息 -->
+	</mappers>
+</configuration>	

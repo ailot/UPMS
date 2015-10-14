@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ailot.sys.dao.DiskFileDao">
+
+	<select id="getHomeId" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select id from diskfile where name = #{userid}
+	</select>
+
+	<select id="selectById" parameterType="java.lang.String"
+		resultType="diskfile">
+		select * from diskfile where id=#{id}
+	</select>
+
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultType="diskfile">
+		select * from diskfile where userid=#{userid}
+	</select>
+
+	<select id="selectByFolderId" parameterType="java.lang.String"
+		resultType="diskfile">
+		select * from diskfile where parentid=#{parentid} order by type asc
+	</select>
+
+	<select id="selectByPath" parameterType="java.lang.String"
+		resultType="diskfile">
+		select * from diskfile where path like #{path}+'%'
+	</select>
+
+	<select id="getPath" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select path from diskfile where id = #{id}
+	</select>
+
+	<select id=" getFileName" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select filename from diskfile where id=#{id}
+	</select>
+
+	<delete id="deleteFile" parameterType="diskfile">
+		delete from diskfile where id = #{id} and userid=#{userid}
+	</delete>
+
+	<update id="rename" parameterType="diskfile">
+		update diskfile set name = #{name} where id=#{id}
+	</update>
+
+	<update id="moveFile" parameterType="java.lang.String">
+		update diskfile set path = replace(path,#{0},#{1}) where path like #{2}
+	</update>
+
+	<update id="share" parameterType="diskfile">
+		update diskfile set isshare = 1,shareurl = #{shareurl} where id = #{id}
+	</update>
+
+	<update id="cancelShare" parameterType="java.lang.String">
+		update diskfile set isshare = 0 where id = #{id}
+	</update>
+
+	<select id="loadAllShareFiles" resultType="diskfile">
+		select id,userid,(select username from sys_user where
+		userid=diskfile.userid) as username,
+		name,type,createtime,shareurl,sharedownload from diskfile where
+		isshare ='1' order by userid
+	</select>
+
+	<update id="updateShareDownload" parameterType="java.lang.String">
+		update myfile set sharedownload = sharedownload + 1 where id =#{id}
+	</update>
+
+	<insert id="save" parameterType="diskfile">
+		insert into diskfile (id, userid, parentid,
+		name, size, type, path,
+		createtime, password,location,
+		shareurl, md5, description
+		)
+		values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},
+		#{parentid,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{type,jdbcType=CHAR},
+		#{path,jdbcType=VARCHAR},
+		#{createtime,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR},
+		#{shareurl,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="diskfile">
+		update diskfile
+		set parentid = #{parentid,jdbcType=VARCHAR},
+		path = #{path,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

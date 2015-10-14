@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ailot.sys.dao.SysRoleDao">
+	<sql id="condition">
+		<trim prefix="where" prefixOverrides="AND | OR">
+			<if test="rolename !=null and rolename !=''">
+				and rolename like '%${rolename}%'
+			</if>
+		</trim>
+	</sql>
+	<!-- 查询所有角色 -->
+	<select id="selectAll" resultType="sysrole" parameterType="sysrole">
+		select * from sys_role
+		<include refid="condition"></include>
+		${bs.condition}
+	</select>
+	<!-- 查询数量 -->
+	<select id="selectCount" parameterType="sysrole" resultType="java.lang.Integer">
+		select count(1) from SYS_ROLE
+		<include refid="condition"></include>
+	</select>
+	<!-- 按id查询 -->
+	<select id="selectById" resultType="sysrole" parameterType="java.lang.String">
+		select * from SYS_ROLE
+		where ROLEID = #{roleid,jdbcType=VARCHAR}
+	</select>
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_role where roleid in
+		<foreach item="ids" collection="array" open="(" separator=","
+			close=")">
+			#{ids}
+		</foreach>
+	</delete>
+	<!-- 角色保存 -->
+	<insert id="save" parameterType="sysrole">
+		insert into SYS_ROLE (roleid,ROLENAME, ROLETYPE)
+		values (#{roleid,jdbcType=VARCHAR},#{rolename,jdbcType=VARCHAR},
+		#{roletype,jdbcType=CHAR} )
+	</insert>
+	<!-- 修改 -->
+	<update id="update" parameterType="sysrole">
+		update SYS_ROLE
+		<set>
+			<if test="rolename != null">
+				ROLENAME = #{rolename,jdbcType=VARCHAR},
+			</if>
+			<if test="roletype != null">
+				ROLETYPE = #{roletype,jdbcType=CHAR},
+			</if>
+		</set>
+		where ROLEID = #{roleid,jdbcType=VARCHAR}
+	</update>
+</mapper>

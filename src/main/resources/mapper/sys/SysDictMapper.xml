@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ailot.sys.dao.SysDictDao">
+	<sql id="condition">
+		<trim prefix="where" prefixOverrides="AND | OR">
+			<if test="value != null and value!=''">
+				and value like '%${value}%'
+			</if>
+			<if test="name != null and name!=''">
+				and name = #{name}
+			</if>
+			<if test="label != null and label!=''">
+				and label = #{label}
+			</if>
+		</trim>
+	</sql>
+
+	<select id="selectAll" parameterType="sysdict" resultType="sysdict">
+		select * from SYS_DICT
+		<include refid="condition"></include>
+		${bs.condition}
+	</select>
+	
+	<select id="getMaxRow" resultType="java.lang.Integer">
+		select max(id)+1 as rownum from sys_dict
+	</select>
+	<!-- 查 -->
+	<select id="selectDistinctDictList" parameterType="sysdict"
+		resultType="sysdict">
+		select distinct label,name from SYS_DICT
+	</select>
+	<!-- -->
+	<select id="selectTreeGrid" parameterType="sysdict" resultType="sysdict">
+		select
+		label,
+		name,
+		id,
+		`key`,
+		parentkey,
+		(select value from SYS_DICT where label= A.LABEL AND `key` = A.parentKey ) as
+		parentValue,
+		value,
+		CASE WHEN (SELECT COUNT(*) FROM SYS_DICT BJ WHERE
+		A.`key` = parentkey and label=#{label} )>0 THEN 'false' ELSE 'true'
+		END as leaf
+		from SYS_DICT A
+		where label=#{label}
+		<if test="value != null and value !=''">
+			and value like '%${value}%'
+		</if>
+		<if test="parentkey != null and parentkey !=''">
+			and parentkey = #{parentkey}
+		</if>
+		<if test="parentkey == null or parentkey =='' ">
+			<if test="value == null or value =='' ">
+				and (parentkey is null or parentkey = '')
+			</if>
+		</if>
+	</select>
+
+	<select id="selectCount" parameterType="sysdict" resultType="java.lang.Integer">
+		select count(1) from SYS_DICT
+		<include refid="condition"></include>
+	</select>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from SYS_DICT where id in 
+		<foreach item="ids" collection="array" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<insert id="save" parameterType="sysdict">
+		insert into sys_dict (id,label, name,
+		`key`, value, parentkey,
+		pinyin)
+		values (#{id,jdbcType=INTEGER},#{label,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR},
+		#{parentkey,jdbcType=VARCHAR},
+		#{pinyin,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="update" parameterType="sysdict">
+		update sys_dict
+		set label = #{label,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		`key` = #{key,jdbcType=VARCHAR},
+		value = #{value,jdbcType=VARCHAR},
+		parentkey = #{parentkey,jdbcType=VARCHAR},
+		pinyin = #{pinyin,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByLabel" parameterType="java.lang.String"
+		resultType="sysdict">
+		select * from SYS_DICT where label=#{label}
+	</select>
+
+	<!-- Extjs下拉树形菜单 -->
+	<select id="getDictTree" resultType="exttree" parameterType="java.lang.String">
+		select `key` as id,value as name,parentkey,'false' as leaf from
+		sys_dict
+		where label=#{label}
+	</select>
+</mapper>

@@ -1,0 +1,196 @@
+*{outline:0;}
+body{font-size:16px;background:#EBEBEB;}
+#main{width:100%;position:relative;padding-top: 30px}
+#left {
+	position:absolute;
+	height:500px;
+	width: 300px;
+	font-size:16px;
+	color:white;
+}
+#right {
+	height: 500px;
+	margin-left: 300px;
+	overflow:hidden;
+	font-size:16px;
+	background:#FFF;
+}
+#dir_tree{
+	background:#FFF;
+	float: left;
+	margin-bottom: 4px;
+	height: 332px;
+	overflow:auto;
+	width: 290px;
+}
+#netdisk{
+	background-color:#38A3DB;
+	float: left;
+	margin-bottom: 4px;
+	text-align:center;
+	width: 290px;
+	height: 120px;
+}
+#shareIndex,#myDisk{
+	background-color:#38A3DB;
+	float: left;
+	margin-bottom: 4px;
+	text-align:center;
+	width: 290px;
+	height:40px;
+	line-height: 40px;
+	cursor:pointer;
+}
+#shareRight{
+	/* display: none; */
+	height: 500px;
+	margin-left: 300px;
+	overflow:hidden;
+	font-size:16px;
+	background:#FFF;
+}
+#path_wrap{
+	border:1px solid #999;
+}
+#space_bar {
+  margin: 20px 0 0 8px;
+  padding: 0 3px;
+  display: block;
+}
+.progress_bar{margin:9px 0;}
+.total_progress,.current_progress,.bar_data{display:block;}
+.total_progress,.bar_data{ padding:2px; text-align:center;}
+.total_progress{background:#FFF;font-size:12px;}
+.current_progress{ background:#A9D5F4;float:left;color:black;font-weight:800;}
+
+#path_wrap{background:white;}
+#tools_bar{
+	padding:30px 2px;
+	padding-bottom:10px;
+}
+#tools_bar span,#tools_bar a{
+	border:#C6E4DB solid 1px;
+	color:#3975CD;
+	}
+#root span{
+	background:url(../image/btn/filehome.png) no-repeat 1px center;
+	padding-left:23px;
+}
+#root,#children_path{
+	display:inline-block;
+}
+#file_path span,#tools_bar span{
+	display:inline-block;
+	margin:0 1px;
+	cursor:pointer;
+	transition: all 0.3s ease 0s;
+}
+#tools_bar span:hover,#file_path span:hover,#tools_bar a:hover{
+	box-shadow: 0 1px 3px rgba(200, 200, 200, 0.6);
+	background-color:#EAF4FE;
+	border-color:#4D90FE;
+}
+#tools_bar span,#tools_bar a{
+	border:#C6E4DB solid 1px;
+	letter-spacing:1px;
+	margin-right:18px;
+	padding:0 4px;
+	padding-left:25px;
+}
+#file_path {
+	color:#3975CD;
+	background:#A9D5F4;
+	overflow:hidden;
+	white-space: nowrap; 
+}
+#file_path span{border:1px solid white;}
+#mkdir{background:url(../image/disk/new_folder.gif) no-repeat 0 center;}
+#upload{
+	position:relative;
+	background:url(../image/disk/upload.png) no-repeat 0 center;
+}
+#upload_button{
+	position:absolute;
+	top:0px;
+	left:0px;
+	border:none!important;
+	padding:0!important;
+	margin:0!important;
+	text-align:left;
+	opacity:0;
+}
+#share{background:url(../image/disk/share_24.png) no-repeat 0 center;}
+.lock_1 .lock,.lock_2 .lock,.share_1 .share{
+	display:block;
+	width:35px;
+	height:35px;
+}
+.lock_1 .lock{background:url(../image/disk/lock_unlock.png) no-repeat -12px -9px;}
+.lock_2 .lock{background:url(../image/disk/lock_unlock.png) no-repeat -65px -9px;}
+.share_1 .share{background:url(../image/disk/share.png) no-repeat;}
+#folder {
+  border-top: 2px solid #3975CD;
+  padding: 20px 0;
+  overflow: auto;
+  height: 418px;
+}
+#shareResource{
+	margin-top:25px;
+	border-top: 2px solid #3975CD;
+	overflow: auto;
+	height: 450px;
+}
+.active{
+	background-color:#ADD5FF!important;
+	border-color:#4D90FE!important;
+	box-shadow: 0 0 20px rgba(77, 144, 254, 0.7);
+    transition: all 0.5s ease 0s;
+}
+#folder ul{
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+#folder .file{
+	width:91px;
+	height:136px;
+	float:left;
+	margin:10px 8px;
+	padding:2px;
+	position:relative;
+	border:1px solid #EAF4FE;
+}
+.file:hover{
+	border-color:#DDD!important;
+}
+.file .file_icon,.file .file_name{
+	width:91px;
+	display:block;
+}
+.file_icon{
+	height:91px;
+	margin:5px 0;
+	cursor:pointer;
+}
+.file_name{
+	height:35px;
+	text-align:center;
+	font-size:12px;
+	word-wrap:break-word;
+	overflow:hidden;
+}
+.file_icon{background:url(../image/file_icon/unknown.png)}
+.exe{background:url(../image/file_icon/exe.png)}
+.xls{background:url(../image/file_icon/xls.png)}
+.apk{background:url(../image/file_icon/apk.png);}
+.mp3{background:url(../image/file_icon/mp3.png) no-repeat;}
+.ppt{background:url(../image/file_icon/ppt.png) no-repeat;}
+.avi{background:url(../image/file_icon/video.png) no-repeat;}
+.adir{background:url(../image/file_icon/adir.png) no-repeat;}
+.txt{background:url(../image/file_icon/txt.png) no-repeat;}
+.pdf{background:url(../image/file_icon/pdf.png) no-repeat;}
+.doc{background:url(../image/file_icon/doc.png) no-repeat;}
+.html,.htm{background:url(../image/file_icon/html.png) no-repeat;}
+.js{background:url(../image/file_icon/js.png) no-repeat;}
+.png,.jpg,.gif{background:url(../image/file_icon/img.png) no-repeat;}
+.zip,.rar{background:url(../image/file_icon/zip.png) no-repeat;}

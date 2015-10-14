@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ailot.sys.dao.SysUserDao" >
+  <sql id="condition" >
+	  <trim prefix="where" prefixOverrides="AND | OR">
+	    <if test="realname !=null and realname !=''">
+			and realname like '%${realname}%'
+		</if>
+		<if test="deptname !=null and deptname !=''">
+			and deptname like '%${deptname}%'
+		</if>
+		<if test="state !=null and state !=''">
+			and state= #{state}
+		</if>
+		<if test="roleid !=1">
+			and deptid= #{bs.sysuser.deptid}
+		</if>
+	  </trim>
+  </sql>
+  
+  <!-- 登录验证 -->
+  <select id="checkLogin" resultType="sysuser" parameterType="java.lang.String">
+		SELECT * from  v_sysuser where username=#{0} and userpwd=#{1} and state='1'
+  </select>
+	
+  <!-- 检测：登录名是否存在 -->
+  <select id="checkLoginName" resultType="java.lang.Integer" parameterType="sysuser">
+		SELECT count(1) from  SYS_USER where username=#{username} 
+		<if test="userid != null and userid !='' ">
+			and userid != #{userid}
+		</if>
+  </select>
+  <!-- 查询菜单 -->
+  <select id="findMenuInfo" resultType="exttree" parameterType="java.lang.String">
+	select a.rightid as id,a.rightname as name,a.MENUURL as url,a.PARENTID as parentkey from SYS_RIGHT a,
+	SYS_ROLERIGHT b where b.RIGHTID=a.RIGHTID and b.ROLEID=#{id} and a.state='1' and type='menu'
+  </select>
+  
+  <select id="selectAll" resultType="sysuser" parameterType="sysuser" >
+  	 select * from v_sysuser 
+   	<include refid="condition"></include>
+	${bs.condition}
+  </select>
+  
+  <select id="selectCount" parameterType="sysuser" resultType="java.lang.Integer" >
+    select count(1) from v_sysuser
+	<include refid="condition" />
+  </select>
+  
+  <!-- 按ID查找 -->
+  <select id="selectById" parameterType="java.lang.String" resultType="sysuser">
+    select * from SYS_USER
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <!-- 插入 -->
+  <insert id="save" parameterType="sysuser" >
+    insert into SYS_USER (USERID,DEPTID, USERNAME, USERPWD, ROLEID,realname)
+    values (
+    #{userid,jdbcType=VARCHAR},
+    #{deptid,jdbcType=VARCHAR},
+     #{username,jdbcType=VARCHAR}, 
+      #{userpwd,jdbcType=VARCHAR},
+       #{roleid,jdbcType=VARCHAR},
+       #{realname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <!-- 修改 -->
+  <update id="update" parameterType="sysuser" >
+    update SYS_USER
+    <set >
+      <if test="deptid != null" >
+        DEPTID = #{deptid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpwd != null" >
+        USERPWD = #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        ROLEID = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  
+   <!-- 修改人员状态 -->
+   <update id="change" parameterType="java.util.Map">
+   		update sys_user set state=#{state} where userid in
+   		<foreach index="index" item="ids" collection="userids" open="(" separator="," close=")">
+	    	#{ids}
+	    </foreach>
+   </update>
+  
+    <delete id="delete" parameterType="java.lang.String" >
+    delete from sys_user where userid in
+    <foreach item="ids" collection="array" open="(" separator="," close=")">
+    	#{ids}
+    </foreach>
+  </delete>
+ <!--  密码重置 -->
+  <update id="resetPwd" parameterType="java.lang.String">
+  	update sys_user set userpwd=#{0} where userid=#{1}
+  </update>
+  
+  <select id="getCombobox" resultType="combobox" parameterType="java.lang.String">
+  	select * from v_combobox where label=#{label}
+  </select>
+</mapper>

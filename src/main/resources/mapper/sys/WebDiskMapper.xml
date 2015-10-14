@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ailot.sys.dao.WebDiskDao">
+
+  <select id="selectById" parameterType="java.lang.String" resultType="webdisk">
+    select * from webdisk where userid=#{id}
+  </select>
+  
+  <update id="updateParam" parameterType="java.lang.String">
+  	update webdisk set filenumber=(select count(1) from diskfile where userid= #{userid} and type!='adir'),
+  	usedsize = (select sum(size) from diskfile where userid=#{userid}) where userid=#{userid}
+  </update>
+  
+  <update id="updateNum" parameterType="webdisk">
+  	update webdisk set usedsize= #{usedsize,jdbcType=INTEGER},filenumber = #{filenumber,jdbcType=INTEGER} where userid=#{userid,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id="save" parameterType="webdisk">
+    insert into webdisk (id, userid, totalsize,usedsize,filenumber)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{totalsize,jdbcType=INTEGER}, #{usedsize,jdbcType=INTEGER}, #{filenumber,jdbcType=INTEGER})
+  </insert>
+  
+</mapper>

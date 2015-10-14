@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ailot.sys.dao.SysFileDao">
+  <sql id="condition" >
+ 	<trim prefix="where" prefixOverrides="AND | OR">
+		<if test="name != null and name!=''">
+		and name like '%${name}%'
+		</if>
+	</trim>
+  </sql>
+  <!-- 查询所有 -->
+  <select id="selectAll" parameterType="sysfile" resultType="sysfile">
+   	 select * from sys_file
+   	<include refid="condition"></include>
+	${bs.condition}
+  </select>
+  <!-- 查询数量 -->
+  <select id="selectCount" parameterType="sysfile" resultType="java.lang.Integer">
+    select count(1) from sys_file
+   	<include refid="condition"></include>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="delete" parameterType="java.lang.String">
+    delete from sys_file where id in
+    <foreach item="ids" collection="array" open="(" separator="," close=")">
+    	#{ids}
+    </foreach>
+  </delete>
+  
+  <!-- 保存 -->
+  <insert id="save" parameterType="sysfile">
+    insert into sys_file (id,name, bz, time)
+    values (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectById" parameterType="java.lang.String" resultType="sysfile">
+  	select * from sys_file where id=#{id}
+  </select>
+</mapper>

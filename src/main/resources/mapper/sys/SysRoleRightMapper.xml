@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ailot.sys.dao.SysRoleRightDao">
+
+	<!-- 根据角色ID删除权限 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from SYS_ROLERIGHT where roleid in
+		<foreach item="ids" collection="array" open="(" separator=","
+			close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<!-- 查询权限 -->
+	<select id="selectRight" parameterType="java.lang.String"
+		resultType="checkbox">
+		SELECT a.RIGHTID AS id,a.RIGHTNAME AS name,a.PARENTID AS parentkey,
+		CASE WHEN b.RIGHTID IS NULL THEN 'fasle' ELSE 'true' END AS checked
+		FROM SYS_RIGHT a LEFT JOIN SYS_ROLERIGHT b ON a.RIGHTID = b.RIGHTID AND
+		ROLEID = #{roleid}
+	</select>
+
+	<!-- 查询按钮 -->
+	<select id="selectButton" parameterType="java.lang.String"
+		resultType="sysright">
+		SELECT  a.RIGHTID,a.rightname,a.menuurl FROM SYS_ROLERIGHT b
+		LEFT JOIN SYS_RIGHT a ON a.RIGHTID = b.RIGHTID AND ROLEID = #{roleid}
+		where A.type='btn' and a.parentid=#{parentid}
+	</select>
+
+	<!-- 权限保存 -->
+	<insert id="saveList" parameterType="java.util.List">
+		insert into SYS_ROLERIGHT values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.rightid,jdbcType=CHAR},#{item.roleid,jdbcType=CHAR})
+		</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ailot.sys.dao.SysNoticeDao">
+  <sql id="condition" >
+	  <trim prefix="where" prefixOverrides="AND | OR">
+		<if test="title != null and title!=''">
+		and title like '%${title}%'
+		</if>
+	</trim>
+  </sql>
+  <!-- 查询所有通知公告 -->
+  <select id="selectAll" parameterType="sysnotice" resultType="sysnotice">
+    select * from sys_notice
+   	<include refid="condition"></include>
+   	${bs.condition}
+  </select>
+  
+  <!-- 按id查询 -->
+    <select id="selectById" parameterType="java.lang.String" resultType="sysnotice">
+    select * from sys_notice where id=#{id}
+  </select>
+  
+  <!-- 查询数量 -->
+  <select id="selectConnt" parameterType="sysnotice"  resultType="java.lang.Integer">
+    select count(*) from sys_notice
+   	<include refid="condition"></include>
+  </select>
+  
+  <!-- 查询前八条记录 -->
+  <select id="selectAny" resultType="sysnotice">
+  select * from sys_notice ORDER BY id desc limit 0,8
+  </select>
+  
+  <!-- 删除通知公告 -->
+  <delete id="delete" parameterType="java.lang.String">
+    delete from sys_notice where id in
+    <foreach item="ids" collection="array" open="(" separator="," close=")">
+    	#{ids}
+    </foreach>
+  </delete>
+  
+  <!-- 保存通知公告 -->
+  <insert id="save" parameterType="sysnotice">
+    insert into sys_notice (id,title, content, time)
+    values (#{id,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 修改通知公告 -->
+  <update id="update" parameterType="sysnotice">
+    update sys_notice
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,186 @@
+/* 查找 */
+.icon-find{ 
+	background: url(../image/btn/find.png);
+}
+/* 删除 */
+.icon-del{
+	background: url(../image/btn/del.png);
+}
+/* 重置 */
+.icon-reset{
+	background: url(../image/btn/reset.png);
+}
+/* 使用方法，在extjs中设置 iconCls : 'icon-操作名',*/
+/*user */
+.icon-user {
+    background-image: url(../image/btn/user.png);
+}
+/*添加user */
+.icon-user-add {
+    background-image: url(../image/btn/user_add.gif);
+}
+/* 帮助  */
+.icon-help {
+    background-image: url(../image/btn/help.png);
+}
+/*保存 */
+.icon-save {
+    background-image: url(../image/btn/save.gif);
+}
+/*停止 */
+.icon-stop {
+    background-image: url(../image/btn/stop.png);
+}
+/*表格 */
+.icon-grid {
+    background-image: url(../image/btn/grid.png);
+}
+/*添加 */
+.icon-add {
+    background-image: url(../image/btn/add.png);
+}
+/*删除*/
+.icon-delete {
+    background-image: url(../image/btn/delete.png);
+}
+/*删除用户*/
+.icon-user-delete {
+    background-image: url(../image/btn/user_delete.png);
+}
+/*删除用户*/
+.icon-user {
+    background-image: url(../image/btn/user.png);
+}
+/*编辑*/
+.icon-edit {
+    background-image: url(../image/btn/edit.png);
+}
+/*刷新*/
+.icon-refresh {
+    background-image: url(../image/btn/refresh.png);
+}
+/*选择*/
+.icon-select {
+    background-image: url(../image/btn/select.png);
+}
+/*查看*/
+.icon-view {
+    background-image: url(../image/btn/view.png);
+}
+/*返回*/
+.icon-back {
+    background-image: url(../image/btn/back.png);
+}
+/*下一步*/
+.icon-next {
+    background-image: url(../image/btn/next.png);
+}
+/*打印*/
+.icon-print{
+    background-image: url(../image/btn/print.png);
+}
+/*拒绝*/
+.icon-reject{
+    background-image: url(../image/btn/reject.png);
+}
+
+/*通过*/
+.icon-pass{
+    background-image: url(../image/btn/pass.png);
+}
+/*提交*/
+.icon-submit{
+    background-image: url(../image/btn/submit.png);
+}
+/*退出*/
+.icon-exit {
+    background-image: url(../image/btn/exit.png);
+}
+.icon-listItems {
+    background-image: url(../image/btn/list-items.gif);
+}
+.icon-chart {
+    background-image: url(../image/btn/chart.png);
+}
+.icon-sql {
+    background-image: url(../image/btn/sql.png);
+}
+/*启用*/
+.icon-start{
+	 background-image: url(../image/btn/start.png);
+}
+/*分配权限*/
+.icon-distribution{
+	 background-image: url(../image/btn/distribution.png);
+}
+/*发送*/
+.icon-send{
+	 background-image: url(../image/btn/send.png);
+}
+/*撤销*/
+.icon-sendout{
+	 background-image: url(../image/btn/sendout.png);
+}
+/*测试*/
+.icon-test{
+	 background-image: url(../image/btn/test.png);
+}
+/*文本*/
+.icon-text{
+	 background-image: url(../image/btn/text.png);
+}
+/*取消*/
+.icon-cancel{
+	 background-image: url(../image/btn/cancel.png);
+}
+/*撤回*/
+.icon-rollback{
+	 background-image: url(../image/btn/rollback.png);
+}
+/*设置*/
+.icon-setup{
+	 background-image: url(../image/btn/setup.png);
+}
+/*检查*/
+.icon-check{
+	 background-image: url(../image/btn/check.png);
+}
+/*下载*/
+.icon-down{
+	 background-image: url(../image/btn/down.png);
+}
+/*下载*/
+.icon-download {
+    background-image: url(../image/btn/download.png);
+}
+/*home*/
+.icon-home{
+	 background-image: url(../image/btn/home.png);
+}
+/*process*/
+.icon-process{
+	 background-image: url(../image/btn/process.png);
+}
+/*key.png*/
+.icon-key{
+	 background-image: url(../image/btn/key.png);
+}
+/*attachment.png*/
+.icon-attachment{
+	 background-image: url(../image/btn/attachment.png);
+}
+.label{
+	background: red;
+}
+/* 新建文件夹 */
+.icon-newfolder{
+	 background-image: url(../image/btn/new_folder.gif);
+}
+/* 文件上传 */
+.icon-upload{
+	 background-image: url(../image/btn/upload.png);
+}
+/* 文件分享 */
+.icon-share_m{
+	 background-image: url(../image/btn/share_24.png);
+}
