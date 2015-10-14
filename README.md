@@ -1,0 +1,1 @@
+UPMS是一个通用权限管理系统，后端框架采用SpringMVC+Spring+Mybatis，前端框架采用Extjs
