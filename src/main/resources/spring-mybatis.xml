@@ -16,8 +16,17 @@
 	<context:annotation-config/>
 	<!-- 配置要扫描的包 -->
     <context:component-scan base-package="cn.ailot"/>
+    <context:component-scan base-package="cn.ailot.cache.redis" />
 	<!-- 引入JDBC配置文件 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="locations">  
+            <list>  
+                <!-- 这里支持多种寻址方式：classpath和file -->  
+                <value>classpath:jdbc.properties</value>  
+                <!-- 推荐使用file的方式引入，这样可以将配置和代码分离 -->  
+            </list>  
+        </property>  
+    </bean> 
 	<!-- Spring bean configuration. Tell Spring to bounce off BoneCP -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
